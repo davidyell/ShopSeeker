@@ -18,11 +18,17 @@ class Postcodes extends Command
      */
     private const DATA_URL = 'https://parlvid.mysociety.org/os/ONSPD/2022-11.zip';
 
-    private string $filePath;
+    private string $folder;
+
+    private string $filename;
+
+    private string $path;
 
     public function __construct()
     {
-        $this->filePath = storage_path('app/postcodes.zip');
+        $this->folder = storage_path('app/postcodes');
+        $this->filename = 'postcodes.zip';
+        $this->path = $this->folder.'/'.$this->filename;
 
         parent::__construct();
     }
@@ -49,7 +55,7 @@ class Postcodes extends Command
         $this->info('Starting postcode data import...');
 
         // Ensure we don't download a file we already downloaded
-        if (Storage::fileExists($this->filePath) === false) {
+        if (Storage::fileMissing($this->path)) {
             // Check the download url exists and is reachable
             $response = Http::head(self::DATA_URL);
             if ($response->failed()) {
@@ -67,23 +73,26 @@ class Postcodes extends Command
                 return self::FAILURE;
             }
             $this->info('Saving the zip file...');
-            Storage::put('postcodes.zip', $response->body());
+            Storage::put($this->path, $response->body());
+        } else {
+            $this->info('File already exists');
         }
 
         // Unzip the file
         $zip = new ZipArchive;
-        if ($zip->open($this->filePath) === true) {
-            $zip->extractTo(storage_path('app/postcodes'));
+        $result = $zip->open($this->path, ZipArchive::CHECKCONS);
+        if ($result === true) {
+            $zip->extractTo($this->folder);
             $zip->close();
         } else {
-            $this->error('Failed to unzip the file.');
+            $this->error(sprintf('Failed to unzip the file, %s', $result));
 
             return self::FAILURE;
         }
         $this->info('Unzipping archive...');
 
         // Go into the Data/multi_csv folder
-        $csvFolderPath = storage_path('app/postcodes/Data/multi_csv');
+        $csvFolderPath = storage_path($this->folder.'/Data/multi_csv');
         if (! is_dir($csvFolderPath)) {
             $this->error('The expected CSV folder does not exist.');
 
@@ -113,8 +122,7 @@ class Postcodes extends Command
             }
         }
 
-        $this->info('Postcode data import completed successfully.');
-        // TODO: Could handle cleanup here by deleting the files, but we don't want to keep downloading it again and again
+        $this->info('✨ Postcode data import completed successfully.');
 
         return self::SUCCESS;
     }
