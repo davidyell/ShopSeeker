@@ -14,4 +14,5 @@ An example application in Larvel to find shops near to a UK postal code.
 
 ## Timesheet
 
--   Session 1: 09:30 ->
+-   Session 1: 09:30 -> 11:30
+-   Session 2: 11:45 ->
