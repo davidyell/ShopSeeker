@@ -18,7 +18,9 @@ class Postcodes extends Command
      */
     private const DATA_URL = 'https://parlvid.mysociety.org/os/ONSPD/2022-11.zip';
 
-    public function __construct(private string $filePath)
+    private string $filePath;
+
+    public function __construct()
     {
         $this->filePath = storage_path('app/postcodes.zip');
 
@@ -61,6 +63,7 @@ class Postcodes extends Command
             $response = Http::get(self::DATA_URL);
             if ($response->failed()) {
                 $this->error('Failed to download the zip file.');
+
                 return self::FAILURE;
             }
             $this->info('Saving the zip file...');
@@ -74,6 +77,7 @@ class Postcodes extends Command
             $zip->close();
         } else {
             $this->error('Failed to unzip the file.');
+
             return self::FAILURE;
         }
         $this->info('Unzipping archive...');
@@ -82,6 +86,7 @@ class Postcodes extends Command
         $csvFolderPath = storage_path('app/postcodes/Data/multi_csv');
         if (! is_dir($csvFolderPath)) {
             $this->error('The expected CSV folder does not exist.');
+
             return self::FAILURE;
         }
 
@@ -89,6 +94,7 @@ class Postcodes extends Command
         $csvFiles = glob($csvFolderPath.'/*.csv');
         if (empty($csvFiles)) {
             $this->error('No CSV files found in the folder.');
+
             return self::FAILURE;
         }
 
