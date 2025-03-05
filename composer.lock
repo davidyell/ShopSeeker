@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c26ee65d004f45e62cffc31845e726e7",
+    "content-hash": "ba7c2f9e4e4914067ac0c39ff6e8cccc",
     "packages": [
         {
             "name": "brick/math",
@@ -5872,6 +5872,68 @@
             "time": "2024-12-21T16:25:41+00:00"
         },
         {
+            "name": "vasildakov/postcode",
+            "version": "1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vasildakov/postcode.git",
+                "reference": "ca928222f7a4cccadf5b2595a3e6e5c53bcff064"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vasildakov/postcode/zipball/ca928222f7a4cccadf5b2595a3e6e5c53bcff064",
+                "reference": "ca928222f7a4cccadf5b2595a3e6e5c53bcff064",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=8.1"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "dev-master",
+                "php-coveralls/php-coveralls": "dev-master",
+                "phpmd/phpmd": "dev-master",
+                "phpunit/phpunit": "^9.5",
+                "psalm/plugin-phpunit": "dev-master",
+                "squizlabs/php_codesniffer": "4.0.x-dev",
+                "symfony/var-dumper": "7.1.x-dev",
+                "theseer/phpdox": "dev-master",
+                "vimeo/psalm": "4.x-dev"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "VasilDakov\\Postcode\\": "src/"
+                },
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Vasil Dakov",
+                    "email": "vasildakov@gmail.com"
+                }
+            ],
+            "description": "UK Postcode ValueObject",
+            "homepage": "https://github.com/vasildakov/postcode",
+            "keywords": [
+                "php",
+                "post",
+                "postcode",
+                "uk"
+            ],
+            "support": {
+                "issues": "https://github.com/vasildakov/postcode/issues",
+                "source": "https://github.com/vasildakov/postcode/tree/1.3"
+            },
+            "time": "2023-12-29T18:23:52+00:00"
+        },
+        {
             "name": "vlucas/phpdotenv",
             "version": "v5.6.1",
             "source": {
@@ -8905,12 +8967,13 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.2"
+        "php": "^8.2",
+        "ext-zip": "*"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }

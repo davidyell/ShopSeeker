@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Casts\PostcodeCaster;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -27,4 +28,16 @@ class Postcode extends Model
      * If we added a controller, we'd need to secure this.
      */
     public $fillable = ['*'];
+
+    /**
+     * @return array<array-key, mixed>
+     */
+    protected function casts(): array
+    {
+        return [
+            'pcd' => PostcodeCaster::class,
+            'pcd2' => PostcodeCaster::class,
+            'pcds' => PostcodeCaster::class,
+        ];
+    }
 }
