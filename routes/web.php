@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Admin\ShopController;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
@@ -19,6 +20,10 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('settings/profile', 'settings.profile')->name('settings.profile');
     Volt::route('settings/password', 'settings.password')->name('settings.password');
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
+
+    Route::get('shops', [ShopController::class, 'index'])->name('shops.index');
+    Route::get('shops/create', [ShopController::class, 'create'])->name('shops.create');
+    Route::post('shops', [ShopController::class, 'store'])->name('shops.store');
 });
 
 require __DIR__.'/auth.php';
