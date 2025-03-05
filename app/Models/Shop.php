@@ -47,4 +47,15 @@ class Shop extends Model
         'store_type',
         'max_delivery_distance',
     ];
+
+    /**
+     * Scope a query to only include shops that are open.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeIsOpen($query)
+    {
+        return $query->where('is_open', true);
+    }
 }
