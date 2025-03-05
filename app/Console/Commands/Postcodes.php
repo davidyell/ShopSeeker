@@ -18,7 +18,12 @@ class Postcodes extends Command
      */
     private const DATA_URL = 'https://parlvid.mysociety.org/os/ONSPD/2022-11.zip';
 
-    private const FILE_URL = storage_path('app/postcodes.zip');
+    public function __construct(private string $filePath)
+    {
+        $this->filePath = storage_path('app/postcodes.zip');
+
+        parent::__construct();
+    }
 
     /**
      * The name and signature of the console command.
@@ -42,7 +47,7 @@ class Postcodes extends Command
         $this->info('Starting postcode data import...');
 
         // Ensure we don't download a file we already downloaded
-        if (Storage::assertExists(self::FILE_URL) === false) {
+        if (Storage::fileExists($this->filePath) === false) {
             // Check the download url exists and is reachable
             $response = Http::head(self::DATA_URL);
             if ($response->failed()) {
@@ -53,11 +58,9 @@ class Postcodes extends Command
             $this->info('Download url is valid and accessible.');
 
             // Try downloading the zip file to the local filesystem
-            $zipFilePath = storage_path('app/postcodes.zip');
             $response = Http::get(self::DATA_URL);
             if ($response->failed()) {
                 $this->error('Failed to download the zip file.');
-
                 return self::FAILURE;
             }
             $this->info('Saving the zip file...');
@@ -66,20 +69,19 @@ class Postcodes extends Command
 
         // Unzip the file
         $zip = new ZipArchive;
-        if ($zip->open($zipFilePath) === true) {
+        if ($zip->open($this->filePath) === true) {
             $zip->extractTo(storage_path('app/postcodes'));
             $zip->close();
         } else {
             $this->error('Failed to unzip the file.');
-
             return self::FAILURE;
         }
+        $this->info('Unzipping archive...');
 
         // Go into the Data/multi_csv folder
         $csvFolderPath = storage_path('app/postcodes/Data/multi_csv');
         if (! is_dir($csvFolderPath)) {
             $this->error('The expected CSV folder does not exist.');
-
             return self::FAILURE;
         }
 
@@ -87,7 +89,6 @@ class Postcodes extends Command
         $csvFiles = glob($csvFolderPath.'/*.csv');
         if (empty($csvFiles)) {
             $this->error('No CSV files found in the folder.');
-
             return self::FAILURE;
         }
 
