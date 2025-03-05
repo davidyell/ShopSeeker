@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('shops', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->decimal('latitude', 10, 7);
-            $table->decimal('longitude', 10, 7);
+            $table->string('name')->index();
+            $table->decimal('latitude', 10, 7)->index();
+            $table->decimal('longitude', 10, 7)->index();
+            // Do we need indexes on open and store type?
             $table->boolean('is_open');
+            // TODO: Convert the store type from an Enum to association
             $table->string('store_type');
             $table->float('max_delivery_distance');
             $table->timestamps();
