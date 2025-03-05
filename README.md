@@ -41,8 +41,9 @@ Visit http://localhost
 -   [API] Add the PHPLeague Fractal package if complex JSON API output is needed.
 -   [API] Add api rate limiting middleware.
 -   [API] Could add an OpenAPI schema and writes tests against it.
+-   [DATA] Investigate MySQL GIS, https://dev.mysql.com/doc/refman/8.4/en/spatial-types.html
 
 ## Timesheet
 
 -   Session 1: 09:30 -> 11:30
--   Session 2: 11:45 ->
+-   Session 2: 11:45 -> 14:00
