@@ -12,7 +12,7 @@ An example application in Larvel to find shops near to a UK postal code.
 -   PHP
 -   Composer
 
-## Install
+## Install & Setup
 
 -   Clone the repo
 -   `composer install`
@@ -21,6 +21,14 @@ An example application in Larvel to find shops near to a UK postal code.
 -   `./vendor/bin/sail npm run dev`
 
 Visit http://localhost
+
+## Login
+
+Visit http://localhost/login and use `admin@example.com` and `password` to login.
+
+## Api
+
+Visit `http://localhost/api/shops?postcode=TA1%203LP&open` in your favourite api application.
 
 ## Things to do
 
@@ -45,5 +53,4 @@ Visit http://localhost
 
 ## Timesheet
 
--   Session 1: 09:30 -> 11:30
--   Session 2: 11:45 -> 14:00
+About 6 hours
