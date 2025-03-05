@@ -8,6 +8,8 @@ An example application in Larvel to find shops near to a UK postal code.
 ## Requirements
 
 -   Docker
+-   PHP
+-   Composer
 
 ## Install
 
@@ -29,4 +31,5 @@ Visit http://localhost
 
 ## Timesheet
 
--   Session 1: 09:30 -> 11:30 - Setup app, created data and shops index and create
+-   Session 1: 09:30 -> 11:30
+-   Session 2: 11:45 ->
